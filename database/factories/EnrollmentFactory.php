@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Card;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Card>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Enrollment>
  */
-class CardFactory extends Factory
+class EnrollmentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +17,7 @@ class CardFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => rand(1, 10),
-            'rfid_tag' => fake()->unique()->uuid(), // using uuid here because why not
+            //
         ];
     }
 }

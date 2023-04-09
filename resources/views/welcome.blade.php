@@ -1,6 +1,6 @@
 <x-app-layout>
     @auth
-        <h2 class="block text-2xl font-bold text-white">Hey, {{ auth()->user()->name }} 👋🏼</h2>
+        <h2 class="block text-2xl font-bold text-white">Hey, {{ auth()->user()->shortLastName }} 👋🏼</h2>
 
         <div class="mt-3">
             <a href="{{ route('home') }}"
