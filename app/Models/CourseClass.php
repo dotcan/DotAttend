@@ -22,7 +22,7 @@ class CourseClass extends Model
         return $this->belongsTo(Course::class);
     }
 
-    public function class_schedules(): HasMany
+    public function classSchedules(): HasMany
     {
         return $this->hasMany(ClassSchedule::class);
     }

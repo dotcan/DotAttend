@@ -33,7 +33,7 @@ class ClassSchedule extends Model
         return $this->hasMany(Attendance::class);
     }
 
-    public function getDaysAttribute(): string
+    public function getDaysFormattedAttribute(): string
     {
         return implode(', ', $this->days);
     }

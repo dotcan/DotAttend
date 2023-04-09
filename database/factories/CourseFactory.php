@@ -17,7 +17,8 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->text(16),
+            'crn' => fake()->unique()->uuid,
         ];
     }
 }

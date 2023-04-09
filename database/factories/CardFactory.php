@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Card;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,6 @@ class CardFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => rand(1, 10),
             'rfid_tag' => fake()->unique()->uuid(), // using uuid here because why not
         ];
     }

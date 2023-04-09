@@ -17,7 +17,8 @@ class CourseClassFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'start_date' => fake()->date,
+            'end_date' => fake()->date,
         ];
     }
 }

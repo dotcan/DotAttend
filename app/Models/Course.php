@@ -15,7 +15,7 @@ class Course extends Model
         'crn',
     ];
 
-    public function course_classes(): HasMany
+    public function courseClasses(): HasMany
     {
         return $this->hasMany(CourseClass::class);
     }

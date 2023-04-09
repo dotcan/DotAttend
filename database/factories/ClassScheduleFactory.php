@@ -17,7 +17,10 @@ class ClassScheduleFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'location' => fake()->unique()->ipv4,
+            'start_time' => fake()->time,
+            'end_time' => fake()->time,
+            'days' => [fake()->dayOfWeek],
         ];
     }
 }
