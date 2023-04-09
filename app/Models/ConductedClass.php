@@ -12,7 +12,7 @@ class ConductedClass extends Model
         'is_done',
     ];
 
-    public function class_schedule(): BelongsTo
+    public function classSchedule(): BelongsTo
     {
         return $this->belongsTo(ClassSchedule::class);
     }

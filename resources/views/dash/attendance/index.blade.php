@@ -15,9 +15,11 @@
         <div class="flex flex-col">
             <div class="-m-1.5 overflow-x-auto">
                 <div class="p-1.5 min-w-full inline-block align-middle">
-                    <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-slate-900 dark:border-gray-700">
+                    <div
+                        class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-slate-900 dark:border-gray-700">
                         <!-- Header -->
-                        <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
+                        <div
+                            class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
                             <div>
                                 <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
                                     Courses
@@ -77,57 +79,69 @@
                             </thead>
 
                             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-{{--                            @foreach($enrollments as $enr)--}}
-                            <tr>
-                                <td class="h-px w-px whitespace-nowrap">
-                                    <div class="pl-6 py-3"></div>
-                                </td>
-                                <td class="h-px w-px whitespace-nowrap">
-                                    <div class="pl-6 lg:pl-3 xl:pl-0 pr-6 py-3">
-                                        <div class="flex items-center">
-                                            <span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{ 'course name' }}</span>
-                                            <span class="block text-sm text-gray-500 ml-2 uppercase">{{ 'crn' }}</span>
+                            @php /** @var \App\Models\Enrollment[] $enrollments */ @endphp
+                            @foreach($enrollments as $enr)
+                                <tr>
+                                    <td class="h-px w-px whitespace-nowrap">
+                                        <div class="pl-6 py-3"></div>
+                                    </td>
+                                    <td class="h-px w-px whitespace-nowrap">
+                                        <div class="pl-6 lg:pl-3 xl:pl-0 pr-6 py-3">
+                                            <div class="flex items-center">
+                                                <span
+                                                    class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{ $enr->class_schedule->course_class->course->name }}</span>
+                                                <span
+                                                    class="block text-sm text-gray-500 ml-2 uppercase">{{ str($enr->class_schedule->course_class->course->crn)->limit(8) }}</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="h-px w-72 whitespace-nowrap">
-                                    <div class="px-6 py-3">
-                                        <span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{ 'sched start' }}-{{ 'sched end' }}</span>
-                                        <span class="block text-sm text-gray-500">{{ 'days' }}</span>
-                                    </div>
-                                </td>
-                                <td class="h-px w-px whitespace-nowrap">
-                                    <div class="px-6 py-3">
-                    <span class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                    </td>
+                                    <td class="h-px w-72 whitespace-nowrap">
+                                        <div class="px-6 py-3">
+                                            <span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{ $enr->class_schedule->start_time_formatted }} - {{ $enr->class_schedule->end_time_formatted }}</span>
+                                            <span
+                                                class="block text-sm text-gray-500">{{ $enr->class_schedule->days_formatted }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="h-px w-px whitespace-nowrap">
+                                        <div class="px-6 py-3">
+                    <span
+                        class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
                       <i class="bi bi-check-circle-fill"></i>
                       Active
                     </span>
-                                    </div>
-                                </td>
-                                <td class="h-px w-px whitespace-nowrap">
-                                    <div class="px-6 py-3">
-                                        <div class="flex items-center gap-x-3">
-                                            <span class="text-xs text-gray-500">{{ 'num' }}</span>
-                                            <div class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700">
-                                                <div class="flex flex-col justify-center overflow-hidden bg-gray-800 dark:bg-gray-200" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </td>
+                                    <td class="h-px w-px whitespace-nowrap">
+                                        <div class="px-6 py-3">
+                                            <div class="flex items-center gap-x-3">
+                                                <span class="text-xs text-gray-500">{{ $enr->class_schedule->attendances()->where('user_id', auth()->user()->id)->count() }}/{{ $enr->class_schedule->course_class->getExpectedNumberOfClasses($enr->class_schedule) }}</span>
+                                                <div
+                                                    class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700">
+                                                    <div
+                                                        class="flex flex-col justify-center overflow-hidden bg-gray-800 dark:bg-gray-200"
+                                                        role="progressbar" style="width: 0" aria-valuenow="25"
+                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="h-px w-px whitespace-nowrap">
-                                    <div class="px-6 py-3">
-                                        <span class="text-sm text-gray-500">28 Dec, 12:12</span>
-                                    </div>
-                                </td>
-                                <td class="h-px w-px whitespace-nowrap">
-                                    <div class="px-6 py-1.5">
-                                        <a class="inline-flex items-center gap-x-1.5 text-sm text-blue-600 decoration-2 hover:underline font-medium" href="#">
-                                            <i class="bi bi-journal"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-{{--                            @endforeach--}}
+                                    </td>
+                                    <td class="h-px w-px whitespace-nowrap">
+                                        <div class="px-6 py-3">
+                                            @php $d = $enr->class_schedule->conductedClasses()->latest()->first() @endphp
+                                            <span
+                                                class="text-sm text-gray-500">{{ $d ? $d->created_at->format('d M Y') : 'None' }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="h-px w-px whitespace-nowrap">
+                                        <div class="px-6 py-1.5">
+                                            <a class="inline-flex items-center gap-x-1.5 text-sm text-blue-600 decoration-2 hover:underline font-medium"
+                                               href="#">
+                                                <i class="bi bi-journal"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                         <!-- End Table -->

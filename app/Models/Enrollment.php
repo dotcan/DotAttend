@@ -15,6 +15,11 @@ class Enrollment extends Model
         'class_schedule_id',
     ];
 
+    protected $with = [
+        'class_schedule',
+        'user',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
