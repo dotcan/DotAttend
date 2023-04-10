@@ -12,9 +12,6 @@
                     {{ __("You're logged in!") }}
                 </div>
                 <div class="pb-6 text-gray-900 dark:text-gray-100">
-                    <x-pui.link :href="route('home')" icon="bi-house" class="mr-6">{{ __('Home') }}</x-pui.link>
-                </div>
-                <div class="pb-6 text-gray-900 dark:text-gray-100">
                     <x-pui.link :href="route('profile.edit')" icon="bi-person">{{ __('Profile') }}</x-pui.link>
                 </div>
                 <div class="pb-6 text-gray-900 dark:text-gray-100">

@@ -17,9 +17,9 @@ class Enrollment extends Model
     ];
 
     protected $with = [
-        'user',
-        'class_schedule',
-        'attendances',
+//        'user',
+//        'class_schedule',
+//        'attendances',
     ];
 
     public function user(): BelongsTo

@@ -45,6 +45,11 @@ class ClassSchedule extends Model
         return $this->hasMany(ConductedClass::class);
     }
 
+    public function enrollments(): HasMany
+    {
+        return $this->hasMany(Enrollment::class);
+    }
+
     public function getDaysFormattedAttribute(): string
     {
         return implode(', ', $this->days);

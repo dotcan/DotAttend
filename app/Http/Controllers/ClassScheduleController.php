@@ -34,9 +34,15 @@ class ClassScheduleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ClassSchedule $classSchedule)
+    public function show(ClassSchedule $schedule)
     {
-        //
+        $schedule->loadMissing(['enrollments' => function ($q) {
+            $q->where('user_id', auth()->user()->id);
+        }, 'enrollments.attendances' => function ($q) {
+            $q->where('user_id', auth()->user()->id);
+        }]);
+
+        return view('class-schedules.show', compact('schedule'));
     }
 
     /**

@@ -12,16 +12,8 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $enrollments = auth()->user()->enrollments()->with('class_schedule')->get();
+        $enrollments = auth()->user()->enrollments()->with(['class_schedule', 'attendances'])->get();
         return view('attendance.index', compact('enrollments'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -37,7 +29,7 @@ class AttendanceController extends Controller
      */
     public function show(Attendance $attendance)
     {
-        //
+        return view('attendance.show', compact('attendance'));
     }
 
     /**
