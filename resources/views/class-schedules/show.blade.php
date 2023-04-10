@@ -6,7 +6,7 @@
     </h2>
 
     <!-- Table Section -->
-    <div class="max-w-[100rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <div class="max-w-[50rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <!-- Card -->
         <div class="flex flex-col">
             <div class="-m-1.5 overflow-x-auto">
@@ -51,8 +51,6 @@
                     </span>
                                     </div>
                                 </th>
-
-                                <th scope="col" class="px-6 py-3 text-right"></th>
                             </tr>
                             </thead>
 
@@ -86,10 +84,10 @@
                     </span>
                                         </div>
                                     </td>
-                                    <td class="h-px w-px whitespace-nowrap">
+                                    <td class="h-px w-px ">
                                         <div class="px-6 py-3">
                                             <div class="flex items-center gap-x-3">
-                                               <span class="text-xs text-gray-500">
+                                               <span class="text-xs text-gray-500 ">
                                                     {{ $absence ? $absence->reason : '' }}
                                                </span>
                                                 @if(!isset($absence->reason))
@@ -108,14 +106,6 @@
                                         <div class="px-6 py-3">
                                             <span
                                                 class="text-sm text-gray-500">{{ $attendance->created_at->format('d M Y') }}</span>
-                                        </div>
-                                    </td>
-                                    <td class="h-px w-px whitespace-nowrap">
-                                        <div class="px-6 py-1.5">
-                                            <a class="inline-flex items-center gap-x-1.5 text-sm text-blue-600 decoration-2 hover:underline font-medium"
-                                               href="{{ route('attendances.show', $attendance) }}">
-                                                <i class="bi bi-journal"></i>
-                                            </a>
                                         </div>
                                     </td>
                                 </tr>

@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rfid_scanners', function (Blueprint $table) {
-            $table->id();
-            $table->string('location');
+            $table->id(); // ideally this should be a longer variable (2-3 Bytes) such as a Nano ID
+            $table->string('location')->nullable();
             $table->timestamps();
         });
     }

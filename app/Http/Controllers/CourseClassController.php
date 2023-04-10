@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\CourseClass;
 use Illuminate\Http\Request;
 
@@ -10,9 +11,14 @@ class CourseClassController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Course $course)
     {
         //
+    }
+
+    public function indexo()
+    {
+
     }
 
     /**

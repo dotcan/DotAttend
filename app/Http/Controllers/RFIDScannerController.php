@@ -28,31 +28,32 @@ class RFIDScannerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return RfidScanner::create();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(RfidScanner $rFIDScanner)
+    public function show(RfidScanner $rfid)
     {
-        //
+        return $rfid;
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(RfidScanner $rFIDScanner)
+    public function edit(RfidScanner $rfid)
     {
-        //
+        return view('admin.rfid-scanner.edit');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, RfidScanner $rFIDScanner)
+    public function update(Request $request, RfidScanner $rfid)
     {
-        //
+        $rfid->update($request->validate(['location' => ['string', 'nullable']]));
+        return $request->expectsJson() ? $rfid : redirect()->route('rfid.index');
     }
 
     /**

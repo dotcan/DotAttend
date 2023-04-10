@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Enrollment;
+use App\Models\ClassSchedule;
+use App\Models\ConductedClass;
+use App\Models\Course;
+use App\Models\CourseClass;
 use Illuminate\Http\Request;
 
-class EnrollmentController extends Controller
+class ConductedClassController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Course $course, CourseClass $class, ClassSchedule $schedule)
     {
         //
     }
@@ -39,7 +42,7 @@ class EnrollmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Enrollment $enrollment)
+    public function show(ConductedClass $conductedClass)
     {
         //
     }
@@ -47,7 +50,7 @@ class EnrollmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Enrollment $enrollment)
+    public function edit(ConductedClass $conductedClass)
     {
         //
     }
@@ -55,7 +58,7 @@ class EnrollmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Enrollment $enrollment)
+    public function update(Request $request, ConductedClass $conductedClass)
     {
         //
     }
@@ -63,7 +66,7 @@ class EnrollmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Enrollment $enrollment)
+    public function destroy(ConductedClass $conductedClass)
     {
         //
     }

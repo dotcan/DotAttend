@@ -11,6 +11,11 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
                 </div>
+                @if(auth()->user()->type == "ADMIN")
+                    <div class="pb-6 text-gray-900 dark:text-gray-100">
+                        <x-pui.link :href="route('admin.dashboard')" icon="bi-person-badge">{{ __('Admin Dashboard') }}</x-pui.link>
+                    </div>
+                @endif
                 <div class="pb-6 text-gray-900 dark:text-gray-100">
                     <x-pui.link :href="route('profile.edit')" icon="bi-person">{{ __('Profile') }}</x-pui.link>
                 </div>

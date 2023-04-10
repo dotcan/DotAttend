@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClassSchedule;
+use App\Models\Course;
+use App\Models\CourseClass;
 use Illuminate\Http\Request;
 
 class ClassScheduleController extends Controller
@@ -10,9 +12,14 @@ class ClassScheduleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Course $course, CourseClass $class)
     {
         //
+    }
+
+    public function indexo()
+    {
+
     }
 
     /**
