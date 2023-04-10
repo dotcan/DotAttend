@@ -12,8 +12,8 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $enrollments = auth()->user()->enrollments;
-        return view('dash.attendance.index', compact('enrollments'));
+        $enrollments = auth()->user()->enrollments()->with('class_schedule')->get();
+        return view('attendance.index', compact('enrollments'));
     }
 
     /**

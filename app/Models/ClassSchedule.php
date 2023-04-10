@@ -23,6 +23,7 @@ class ClassSchedule extends Model
 
     protected $with = [
         'course_class',
+        'conductedClasses',
     ];
 
     protected $casts = [

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Enrollment extends Model
 {
@@ -16,8 +17,9 @@ class Enrollment extends Model
     ];
 
     protected $with = [
-        'class_schedule',
         'user',
+        'class_schedule',
+        'attendances',
     ];
 
     public function user(): BelongsTo
@@ -28,5 +30,10 @@ class Enrollment extends Model
     public function class_schedule(): BelongsTo
     {
         return $this->belongsTo(ClassSchedule::class);
+    }
+
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(Attendance::class);
     }
 }

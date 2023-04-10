@@ -1,13 +1,5 @@
 <x-app-layout>
     <h2 class="block text-2xl font-bold text-white">Your Attendance</h2>
-    <div class="mt-3">
-{{--        <a href="{{ request.url_for('home_user', user_id=user.id) }}"--}}
-        <a href="{{ route('home') }}"
-           class="relative font-medium text-indigo-600 before:absolute before:-bottom-1 before:h-0.5 before:w-full before:origin-left before:scale-x-0 before:bg-indigo-600 before:transition hover:before:scale-100">
-            <i class="bi bi-house"></i>
-            Home
-        </a>
-    </div>
 
     <!-- Table Section -->
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
@@ -61,7 +53,7 @@
                                 <th scope="col" class="px-6 py-3 text-left">
                                     <div class="flex items-center gap-x-2">
                     <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                      Completion
+                      Absences
                     </span>
                                     </div>
                                 </th>
@@ -114,7 +106,10 @@
                                     <td class="h-px w-px whitespace-nowrap">
                                         <div class="px-6 py-3">
                                             <div class="flex items-center gap-x-3">
-                                                <span class="text-xs text-gray-500">{{ $enr->class_schedule->attendances()->where('user_id', auth()->user()->id)->count() }}/{{ $enr->class_schedule->course_class->getExpectedNumberOfClasses($enr->class_schedule) }}</span>
+{{--                                                <span class="text-xs text-gray-500">{{ $enr->class_schedule->attendances()->where('user_id', auth()->user()->id)->count() }}/{{ $enr->class_schedule->course_class->getExpectedNumberOfClasses($enr->class_schedule) }}</span>--}}
+                                                <span class="text-xs text-gray-500">
+                                                    {{ $enr->attendances->where('absence_id', '!=', null)->count() }}
+                                                </span>
                                                 <div
                                                     class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden dark:bg-gray-700">
                                                     <div
@@ -127,7 +122,7 @@
                                     </td>
                                     <td class="h-px w-px whitespace-nowrap">
                                         <div class="px-6 py-3">
-                                            @php $d = $enr->class_schedule->conductedClasses()->latest()->first() @endphp
+                                            @php $d = $enr->class_schedule->conductedClasses->last() @endphp
                                             <span
                                                 class="text-sm text-gray-500">{{ $d ? $d->created_at->format('d M Y') : 'None' }}</span>
                                         </div>
