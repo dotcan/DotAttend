@@ -12,15 +12,8 @@ class RFIDScannerController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $scanners = RfidScanner::simplePaginate(8);
+        return view('admin.rfid-scanner.index', compact('scanners'));
     }
 
     /**
@@ -44,7 +37,7 @@ class RFIDScannerController extends Controller
      */
     public function edit(RfidScanner $rfid)
     {
-        return view('admin.rfid-scanner.edit');
+        return view('admin.rfid-scanner.edit', compact('rfid'));
     }
 
     /**
@@ -53,14 +46,15 @@ class RFIDScannerController extends Controller
     public function update(Request $request, RfidScanner $rfid)
     {
         $rfid->update($request->validate(['location' => ['string', 'nullable']]));
-        return $request->expectsJson() ? $rfid : redirect()->route('rfid.index');
+        return $request->expectsJson() ? $rfid : redirect()->route('admin.rfid.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RfidScanner $rFIDScanner)
+    public function destroy(Request $request, RfidScanner $rfid)
     {
-        //
+        $rfid->delete();
+        return $request->expectsJson() ? null : redirect()->route('admin.rfid.index');
     }
 }

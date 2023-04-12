@@ -1,10 +1,7 @@
-@php
-    $stuff = [[], [], [], []];
-@endphp
-<x-admin-layout subheader="Manage Something" header="List of Things">
+<x-admin-layout subheader="Manage Users" header="List of Users">
     <div class="mt-4">
-        <x-pui.link :href="route('home')" icon="bi-file-plus">
-            Create New Thing
+        <x-pui.link :href="route('admin.users.create')" icon="bi-file-plus">
+            Create New User
         </x-pui.link>
     </div>
     <x-pui.table.work>
@@ -16,36 +13,36 @@
                 Name
             </th>
             <th scope="col" class="px-6 py-3">
-                Field 1
+                Type
             </th>
             <th scope="col" class="px-6 py-3">
-                Field 2
+                Card
             </th>
             <th scope="col" class="px-6 py-3"></th>
         </x-slot:head>
 
-        @foreach($stuff as $something)
+        @php /** @var \App\Models\User[] $users */ @endphp
+        @foreach($users as $user)
             <tr @class(["bg-white dark:bg-gray-900 dark:border-gray-700" => $loop->odd,
                         "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" => $loop->even,
                         "border-b" => !$loop->last])>
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple MacBook Pro 17"
+                    {{ $user->id }}
                 </th>
                 <td class="px-6 py-4">
-                    Silver
+                    {{ $user->name }}
                 </td>
                 <td class="px-6 py-4">
-                    Laptop
+                    {{ $user->type }}
                 </td>
                 <td class="px-6 py-4">
-                    $2999
+                    {{ $user->card ? $user->card->rfid_tag : 'None' }}
                 </td>
                 <td class="px-6 py-4 flex float-right gap-4">
-                    <x-pui.link :href="route('home')" icon="bi-eye"></x-pui.link>
-                    <x-pui.link :href="route('home')" icon="bi-pencil-square"></x-pui.link>
-                    <form action="{{ route('home') }}" method="POST">
+                    <x-pui.link :href="route('admin.users.edit', $user)" icon="bi-pencil-square"></x-pui.link>
+                    <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
                         @csrf @method('DELETE')
-                        <x-pui.link :href="route('home')" color="text-red-600"
+                        <x-pui.link :href="route('admin.users.destroy', $user)" color="text-red-600"
                                     hover-color="bg-red-600" icon="bi-trash3"
                                     onclick="event.preventDefault(); this.closest('form').submit();"></x-pui.link>
                     </form>
@@ -53,5 +50,7 @@
             </tr>
         @endforeach
     </x-pui.table.work>
-    {{ $stuff->links() }}
+    <div class="mt-4">
+        {{ $users->links() }}
+    </div>
 </x-admin-layout>

@@ -47,6 +47,12 @@
                     {{ __('Users') }}
                 </x-pui.sidebar-link>
             </li>
+            <li>
+                <x-pui.sidebar-link :href="route('admin.cards.index')" icon="bi-wallet"
+                                    :active="request()->routeIs('admin.cards.index')">
+                    {{ __('Cards') }}
+                </x-pui.sidebar-link>
+            </li>
 
             <li class="hs-accordion" id="courses-accordion">
                 <x-pui.accordion.sidebar-link icon="bi-book">{{ __('Courses') }}</x-pui.accordion.sidebar-link>
@@ -80,8 +86,8 @@
             </li>
 
             <li>
-                <x-pui.sidebar-link :href="route('admin.rfid.index')" icon="bi-person-circle"
-                                    :active="request()->routeIs('admin.rfid.index')">
+                <x-pui.sidebar-link :href="route('admin.attendances.index')" icon="bi-person-circle"
+                                    :active="request()->routeIs('admin.attendances.index')">
                     {{ __('Attendances') }}
                 </x-pui.sidebar-link>
             </li>

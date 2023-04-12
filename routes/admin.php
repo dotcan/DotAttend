@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\ClassScheduleController;
 use App\Http\Controllers\ConductedClassController;
 use App\Http\Controllers\CourseClassController;
@@ -23,6 +25,8 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'admin.dashboard')->name('dashboard');
 Route::resource('rfid', RFIDScannerController::class, ['except' => ['store']]);
 Route::resource('users', UserController::class);
+Route::resource('cards', CardController::class);
+Route::resource('attendances', AttendanceController::class);
 
 Route::prefix('course')->name('indexes.')->group(function () {
     Route::get('classes', [CourseClassController::class, 'indexo'])->name('class');
