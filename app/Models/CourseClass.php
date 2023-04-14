@@ -61,4 +61,11 @@ class CourseClass extends Model
 
         return $count;
     }
+
+    public function getDurationDateAttribute(): string
+    {
+        $start = Carbon::createFromFormat('Y-m-d', $this->start_date)->format('d/m/y');
+        $end = Carbon::createFromFormat('Y-m-d', $this->end_date)->format('d/m/y');
+        return $start . ' - ' . $end;
+    }
 }

@@ -45,7 +45,11 @@ class RFIDScannerController extends Controller
      */
     public function update(Request $request, RfidScanner $rfid)
     {
-        $rfid->update($request->validate(['location' => ['string', 'nullable']]));
+        $request->validate(['location' => ['string', 'nullable'], 'is_marking_attendance' => ['boolean', 'nullable']]);
+        $rfid->update([
+            'location' => $request->string('location'),
+            'is_marking_attendance' => $request->boolean('is_marking_attendance'),
+        ]);
         return $request->expectsJson() ? $rfid : redirect()->route('admin.rfid.index');
     }
 

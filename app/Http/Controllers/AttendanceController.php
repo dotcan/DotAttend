@@ -10,10 +10,16 @@ class AttendanceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $enrollments = auth()->user()->enrollments()->with(['class_schedule', 'attendances'])->get();
-        return view('attendance.index', compact('enrollments'));
+        if (str(\Route::currentRouteName())->startsWith('admin')) {
+            $limit = $request->input('limit') ?? 25;
+            $attendances = Attendance::with(['user', 'absence', 'class_schedule.course_class.course'])->latest()->paginate($limit);
+            return view('admin.attendances.index', compact('attendances'));
+        } else {
+            $enrollments = auth()->user()->enrollments()->with(['class_schedule', 'attendances'])->get();
+            return view('attendance.index', compact('enrollments'));
+        }
     }
 
     /**

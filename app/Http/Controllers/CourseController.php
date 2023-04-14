@@ -12,7 +12,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $courses = Course::latest()->simplePaginate(8);
+        return view('admin.courses.index', compact('courses'));
     }
 
     /**
@@ -20,7 +21,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.courses.create');
     }
 
     /**
@@ -28,7 +29,11 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $course = Course::create($request->validate([
+            'name' => ['required', 'string'],
+            'crn' => ['required', 'string', 'unique:' . Course::class],
+        ]));
+        return $request->expectsJson() ? $course : redirect()->route('admin.courses.show', $course);
     }
 
     /**
@@ -36,7 +41,8 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        //
+        $course->loadMissing('courseClasses.classSchedules.conductedClasses');
+        return view('admin.courses.show', compact('course'));
     }
 
     /**
@@ -44,7 +50,7 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        //
+        return view('admin.courses.edit', compact('course'));
     }
 
     /**
@@ -52,7 +58,11 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        //
+        $course->update($request->validate([
+            'name' => ['required', 'string'],
+            'crn' => ['required', 'string', 'unique:' . Course::class . ',crn,' . $course->id],
+        ]));
+        return $request->expectsJson() ? $course : redirect()->route('admin.courses.show', $course);
     }
 
     /**
@@ -60,6 +70,7 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+        $course->delete();
+        return redirect()->route('admin.courses.index');
     }
 }

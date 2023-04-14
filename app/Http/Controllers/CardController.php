@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CardController extends Controller
@@ -12,7 +13,8 @@ class CardController extends Controller
      */
     public function index()
     {
-        //
+        $cards = Card::with('user')->simplePaginate(8);
+        return view('admin.cards.index', compact('cards'));
     }
 
     /**
@@ -20,7 +22,7 @@ class CardController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.cards.create');
     }
 
     /**
@@ -28,31 +30,11 @@ class CardController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Card $card)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Card $card)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Card $card)
-    {
-        //
+        $card = Card::create($request->validate([
+            'rfid_tag' => ['string', 'required'],
+            'user_id' => ['nullable', 'numeric', 'exists:' . User::class . ',id'],
+        ]));
+        return $request->expectsJson() ? $card : redirect()->route('admin.cards.index');
     }
 
     /**
@@ -60,6 +42,7 @@ class CardController extends Controller
      */
     public function destroy(Card $card)
     {
-        //
+        $card->delete();
+        return redirect()->route('admin.cards.index');
     }
 }

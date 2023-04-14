@@ -31,6 +31,7 @@
 <div id="application-sidebar-dark" class="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 left-0 bottom-0 z-[60] w-64 bg-gray-900 border-r border-gray-800 pt-7 pb-10 overflow-y-auto scrollbar-y lg:block lg:translate-x-0 lg:right-auto lg:bottom-0">
     <div class="px-6">
         <a class="flex-none text-xl font-semibold text-white" href="{{ route('admin.dashboard') }}" aria-label="Brand">{{ config('app.name') }}</a>
+        <a class="float-right text-gray-500" href="{{ route('home') }}"><i class="bi bi-house-door"></i></a>
     </div>
 
     <nav class="hs-accordion-group p-6 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
@@ -91,6 +92,14 @@
                     {{ __('Attendances') }}
                 </x-pui.sidebar-link>
             </li>
+
+            @if(config('app.debug'))
+                <li>
+                    <x-pui.sidebar-link :href="route('telescope')" icon="bi-moon" target="_blank">
+                        {{ __('Telescope') }}
+                    </x-pui.sidebar-link>
+                </li>
+            @endif
         </ul>
     </nav>
 </div>

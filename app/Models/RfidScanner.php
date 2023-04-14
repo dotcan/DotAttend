@@ -8,6 +8,7 @@ class RfidScanner extends Model
 {
     protected $fillable = [
         'location',
+        'is_marking_attendance',
     ];
 
     protected $hidden = [
