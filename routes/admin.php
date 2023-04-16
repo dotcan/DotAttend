@@ -26,7 +26,7 @@ Route::view('/', 'admin.dashboard')->name('dashboard');
 Route::resource('rfid', RFIDScannerController::class, ['except' => ['store']]);
 Route::resource('users', UserController::class);
 Route::resource('cards', CardController::class, ['except' => ['show', 'edit']]);
-Route::resource('attendances', AttendanceController::class);
+Route::resource('attendances', AttendanceController::class, ['except' => 'show']);
 
 Route::prefix('course')->name('indexes.')->group(function () {
     Route::get('classes', [CourseClassController::class, 'indexo'])->name('class');

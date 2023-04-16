@@ -43,7 +43,8 @@ class AttendanceController extends Controller
      */
     public function edit(Attendance $attendance)
     {
-        //
+        $attendance->loadMissing('absence');
+        return view('admin.attendances.edit', compact('attendance'));
     }
 
     /**
@@ -51,7 +52,36 @@ class AttendanceController extends Controller
      */
     public function update(Request $request, Attendance $attendance)
     {
-        //
+        $request->validate(['is_absent' => ['nullable', 'boolean'], 'reason' => ['nullable', 'string']]);
+        $is_absent = $request->input('is_absent');
+        $reason = $request->input('reason');
+
+        // duplicate code here.
+        if ($attendance->absence) {
+            if ($is_absent) {
+                if (str($reason)->lower()->contains('no reason') || str($reason)->isEmpty())
+                    $attendance->update(['absence_id' => 1]);
+                else if ($attendance->absence_id != 1)
+                    $attendance->absence->update(['reason' => $reason]);
+                else {
+                    $ab = $attendance->absence()->create(['user_id' => $attendance->user_id, 'reason' => $reason, 'attendance_id' => $attendance->id]);
+                    $attendance->update(['absence_id' => $ab->id]);
+                }
+            } else if ($attendance->absence_id == 1)
+                $attendance->update(['absence_id' => null]);
+            else {
+                $attendance->update(['absence_id' => null]);
+                $attendance->absence->delete();
+            }
+        } else if ($is_absent)
+            if (str($reason)->lower()->contains('no reason') || str($reason)->isEmpty())
+                $attendance->update(['absence_id' => 1]);
+            else {
+                $ab = $attendance->absence()->create(['user_id' => $attendance->user_id, 'reason' => $reason, 'attendance_id' => $attendance->id]);
+                $attendance->update(['absence_id' => $ab->id]);
+            }
+
+        return redirect()->route('admin.attendances.index');
     }
 
     /**

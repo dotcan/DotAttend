@@ -64,11 +64,10 @@
                     {{ $att->created_at->format('h:i A d/m/y') }}
                 </td>
                 <td class="px-6 py-4 flex float-right gap-4">
-                    <x-pui.link :href="route('home')" icon="bi-eye"></x-pui.link>
-                    <x-pui.link :href="route('home')" icon="bi-pencil-square"></x-pui.link>
-                    <form action="{{ route('home') }}" method="POST">
+                    <x-pui.link :href="route('admin.attendances.edit', $att)" icon="bi-pencil-square"></x-pui.link>
+                    <form action="{{ route('admin.attendances.destroy', $att) }}" method="POST">
                         @csrf @method('DELETE')
-                        <x-pui.link :href="route('home')" color="text-red-600"
+                        <x-pui.link :href="route('admin.attendances.destroy', $att)" color="text-red-600"
                                     hover-color="bg-red-600" icon="bi-trash3"
                                     onclick="event.preventDefault(); this.closest('form').submit();"></x-pui.link>
                     </form>

@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(ClassSchedule::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Enrollment::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Absence::class)->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Absence::class)->nullable()->constrained();
             $table->timestamps();
         });
     }

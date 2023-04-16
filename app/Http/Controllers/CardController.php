@@ -30,7 +30,7 @@ class CardController extends Controller
         $card->loadMissing('user');
         return [
             "Card" => $card->only(['rfid_tag', 'user_id']),
-            "User" => $card->user->only('id', 'name', 'type')
+            "User" => $card->user ? $card->user->only('id', 'name', 'type') : null
         ];
     }
 
