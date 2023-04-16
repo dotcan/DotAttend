@@ -34,8 +34,13 @@ class AttendanceController extends Controller
         $rfid_tag = $request->input('rfid_tag');
 
         $scanner = RfidScanner::findOrFail($scanner_id);
+        if (!$scanner->is_marking_attendance)
+            return ["message" => "Scanner is not marking attendance."];
+
         $card = Card::with('user.enrollments')->where('rfid_tag', $rfid_tag)->firstOrFail();
         $user = $card->user;
+        if (!$user)
+            return ["message" => "Card does not belong to any user"];
 
         $now = now();
         $schedule = ClassSchedule::whereLocation($scanner->location)

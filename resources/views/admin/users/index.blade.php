@@ -39,6 +39,7 @@
                     {{ $user->card ? $user->card->rfid_tag : 'None' }}
                 </td>
                 <td class="px-6 py-4 flex float-right gap-4">
+                    <x-pui.link :href="route('admin.users.edit', $user)" icon="bi-pencil-square"></x-pui.link>
                     <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
                         @csrf @method('DELETE')
                         <x-pui.link :href="route('admin.users.destroy', $user)" color="text-red-600"
