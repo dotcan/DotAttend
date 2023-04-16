@@ -25,13 +25,22 @@ class CardController extends Controller
         return view('admin.cards.create');
     }
 
+    public function show(Card $card)
+    {
+        $card->loadMissing('user');
+        return [
+            "Card" => $card->only(['rfid_tag', 'user_id']),
+            "User" => $card->user->only('id', 'name', 'type')
+        ];
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
         $card = Card::create($request->validate([
-            'rfid_tag' => ['string', 'required'],
+            'rfid_tag' => ['string', 'required', 'unique:' . Card::class],
             'user_id' => ['nullable', 'numeric', 'exists:' . User::class . ',id'],
         ]));
         return $request->expectsJson() ? $card : redirect()->route('admin.cards.index');
