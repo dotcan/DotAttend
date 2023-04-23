@@ -21,7 +21,8 @@ class RFIDScannerController extends Controller
      */
     public function store(Request $request)
     {
-        return RfidScanner::create();
+        $request->validate(['esp_id' => ['required', 'integer', 'unique:' . RfidScanner::class . ',esp_id']]);
+        return RfidScanner::create($request->only('esp_id'));
     }
 
     /**
