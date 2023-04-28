@@ -17,7 +17,7 @@ class AttendanceController extends Controller
             $attendances = Attendance::with(['user', 'absence', 'class_schedule.course_class.course'])->latest()->paginate($limit);
             return view('admin.attendances.index', compact('attendances'));
         } else {
-            $enrollments = auth()->user()->enrollments()->with(['class_schedule', 'attendances'])->get();
+            $enrollments = auth()->user()->enrollments()->with(['class_schedule.conductedClasses', 'attendances'])->get();
             return view('attendance.index', compact('enrollments'));
         }
     }
