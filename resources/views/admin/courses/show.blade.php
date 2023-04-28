@@ -5,9 +5,9 @@
             <span class="text-sm text-gray-500">{{ $course->crn }}</span>
         </h3>
         <div class="mt-4">
-            <x-pui.link :href="route('admin.classes.index', $course)">View Classes</x-pui.link>
+            <x-pui.link :href="route('admin.classes.index', ['course' => $course->id])">View Classes</x-pui.link>
             <i class="bi bi-dot text-gray-500"></i>
-            <x-pui.link :href="route('admin.classes.create', $course)">Create New Class</x-pui.link>
+            <x-pui.link :href="route('admin.classes.create', ['course' => $course->id])">Create New Class</x-pui.link>
         </div>
 
         <div>
@@ -40,18 +40,18 @@
                         <td class="px-6 py-4">
                             {{-- N+1 --}}
                             {{ $class->getExpectedNumberOfClasses($class->classSchedules[0] ?? null) }}
-                            <x-pui.link :href="route('admin.schedules.create', [$course, $class])"
+                            <x-pui.link :href="route('admin.schedules.create', ['class' => $class])"
                                         icon="bi-plus-square"></x-pui.link>
                         </td>
 
                         <td class="px-6 py-4 flex float-right gap-4">
-                            <x-pui.link :href="route('admin.classes.show', [$course, $class])"
+                            <x-pui.link :href="route('admin.classes.show', $class)"
                                         icon="bi-eye"></x-pui.link>
-                            <x-pui.link :href="route('admin.classes.edit', [$course, $class])"
+                            <x-pui.link :href="route('admin.classes.edit', $class)"
                                         icon="bi-pencil-square"></x-pui.link>
-                            <form action="{{ route('admin.classes.destroy', [$course, $class]) }}" method="POST">
+                            <form action="{{ route('admin.classes.destroy', $class) }}" method="POST">
                                 @csrf @method('DELETE')
-                                <x-pui.link :href="route('admin.classes.destroy', [$course, $class])"
+                                <x-pui.link :href="route('admin.classes.destroy', $class)"
                                             color="text-red-600"
                                             hover-color="bg-red-600" icon="bi-trash3"
                                             onclick="event.preventDefault(); this.closest('form').submit();"></x-pui.link>

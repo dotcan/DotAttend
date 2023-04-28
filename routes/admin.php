@@ -28,16 +28,9 @@ Route::resource('users', UserController::class);
 Route::resource('cards', CardController::class, ['except' => ['show', 'edit']]);
 Route::resource('attendances', AttendanceController::class, ['except' => 'show']);
 
-Route::prefix('course')->name('indexes.')->group(function () {
-    Route::get('classes', [CourseClassController::class, 'indexo'])->name('class');
-    Route::get('schedules', [ClassScheduleController::class, 'indexo'])->name('schedule');
-    Route::get('sessions', [ConductedClassController::class, 'indexo'])->name('session');
-    Route::get('enrollments', [EnrollmentController::class, 'indexo'])->name('enrollment');
-});
-
 Route::resource('courses', CourseController::class);
-Route::resource('courses/{course}/classes', CourseClassController::class);
-Route::resource('courses/{course}/classes/{class}/schedules', ClassScheduleController::class);
-Route::resource('courses/{course}/classes/{class}/schedules/{schedule}/sessions', ConductedClassController::class);
-Route::resource('courses/{course}/classes/{class}/schedules/{schedule}/enrollments', EnrollmentController::class);
+Route::resource('classes', CourseClassController::class);
+Route::resource('schedules', ClassScheduleController::class);
+Route::resource('sessions', ConductedClassController::class);
+Route::resource('enrollments', EnrollmentController::class);
 

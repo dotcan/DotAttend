@@ -1,17 +1,8 @@
 <x-admin-layout subheader="Manage Classes" header="List of Classes">
     <div class="mt-4">
-        @isset($course)
-            <x-slot:description>
-                Course: {{ $course->name }} ({{$course->crn}})
-            </x-slot:description>
-            <x-pui.link :href="route('admin.classes.create', $course)" icon="bi-file-plus">
-                Create New Class
-            </x-pui.link>
-        @else
-            <x-slot:description>
-                Creating new classes is only available in a course's details page
-            </x-slot:description>
-        @endisset
+        <x-slot:description>
+            Creating new classes is only available in a course's details page
+        </x-slot:description>
     </div>
     <x-pui.table.work>
         <x-slot:head>
@@ -24,11 +15,11 @@
             <th scope="col" class="px-6 py-3">
                 Duration Date
             </th>
-            @isset($course)
-                <th scope="col" class="px-6 py-3">
-                    Expected Sessions
-                </th>
-            @endisset
+{{--            @isset($course)--}}
+{{--                <th scope="col" class="px-6 py-3">--}}
+{{--                    Expected Sessions--}}
+{{--                </th>--}}
+{{--            @endisset--}}
             <th scope="col" class="px-6 py-3"></th>
         </x-slot:head>
 
@@ -48,29 +39,24 @@
                     {{ $class->duration_date }}
                 </td>
 
-                @isset($course)
-                    <td class="px-6 py-4">
-                        {{-- N+1 --}}
-                        {{ $class->getExpectedNumberOfClasses() }}
-                        <x-pui.link :href="route('admin.schedules.create', [$course, $class])"
-                                    icon="bi-plus-square"></x-pui.link>
-                    </td>
-                @endisset
+{{--                @isset($course)--}}
+{{--                    <td class="px-6 py-4">--}}
+{{--                        --}}{{-- N+1 --}}
+{{--                        {{ $class->getExpectedNumberOfClasses() }}--}}
+{{--                        <x-pui.link :href="route('admin.schedules.create', [$course, $class])"--}}
+{{--                                    icon="bi-plus-square"></x-pui.link>--}}
+{{--                    </td>--}}
+{{--                @endisset--}}
 
                 <td class="px-6 py-4 flex float-right gap-4">
-                    @isset($course)
-                        <x-pui.link :href="route('admin.classes.show', [$course, $class])" icon="bi-eye"></x-pui.link>
-                        <x-pui.link :href="route('admin.classes.edit', [$course, $class])"
-                                    icon="bi-pencil-square"></x-pui.link>
-                        <form action="{{ route('admin.classes.destroy', [$course, $class]) }}" method="POST">
-                            @csrf @method('DELETE')
-                            <x-pui.link :href="route('admin.classes.destroy', [$course, $class])" color="text-red-600"
-                                        hover-color="bg-red-600" icon="bi-trash3"
-                                        onclick="event.preventDefault(); this.closest('form').submit();"></x-pui.link>
-                        </form>
-                    @else
-                        <x-pui.link :href="route('admin.courses.show', $class->course)" icon="bi-eye"></x-pui.link>
-                    @endisset
+                    <x-pui.link :href="route('admin.classes.show', $class)" icon="bi-eye"></x-pui.link>
+                    <x-pui.link :href="route('admin.classes.edit', $class)" icon="bi-pencil-square"></x-pui.link>
+                    <form action="{{ route('admin.classes.destroy', $class) }}" method="POST">
+                        @csrf @method('DELETE')
+                        <x-pui.link :href="route('admin.classes.destroy', $classes)" color="text-red-600"
+                                    hover-color="bg-red-600" icon="bi-trash3"
+                                    onclick="event.preventDefault(); this.closest('form').submit();"></x-pui.link>
+                    </form>
                 </td>
             </tr>
         @endforeach

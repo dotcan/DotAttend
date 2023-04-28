@@ -64,16 +64,16 @@
                             <x-pui.accordion.sidebar-child-link :href="route('admin.courses.index')">{{ __('Manage Courses') }}</x-pui.accordion.sidebar-child-link>
                         </li>
                         <li>
-                            <x-pui.accordion.sidebar-child-link :href="route('admin.indexes.class')">{{ __('Manage Classes') }}</x-pui.accordion.sidebar-child-link>
+                            <x-pui.accordion.sidebar-child-link :href="route('admin.classes.index')">{{ __('Manage Classes') }}</x-pui.accordion.sidebar-child-link>
                         </li>
                         <li>
-                            <x-pui.accordion.sidebar-child-link :href="route('admin.indexes.schedule')">{{ __('Manage Schedules') }}</x-pui.accordion.sidebar-child-link>
+                            <x-pui.accordion.sidebar-child-link :href="route('admin.schedules.index')">{{ __('Manage Schedules') }}</x-pui.accordion.sidebar-child-link>
                         </li>
                         <li>
-                            <x-pui.accordion.sidebar-child-link :href="route('admin.indexes.session')">{{ __('Manage Sessions') }}</x-pui.accordion.sidebar-child-link>
+                            <x-pui.accordion.sidebar-child-link :href="route('admin.sessions.index')">{{ __('Manage Sessions') }}</x-pui.accordion.sidebar-child-link>
                         </li>
                         <li>
-                            <x-pui.accordion.sidebar-child-link :href="route('admin.indexes.enrollment')">{{ __('Manage Enrollments') }}</x-pui.accordion.sidebar-child-link>
+                            <x-pui.accordion.sidebar-child-link :href="route('admin.enrollments.index')">{{ __('Manage Enrollments') }}</x-pui.accordion.sidebar-child-link>
                         </li>
                     </ul>
                 </div>
