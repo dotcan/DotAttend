@@ -10,6 +10,9 @@
             <th scope="col" class="px-6 py-3">
                 Marking Attendance
             </th>
+            <th scope="col" class="px-6 py-3">
+                ESP
+            </th>
             <th scope="col" class="px-6 py-3"></th>
         </x-slot:head>
 
@@ -25,6 +28,9 @@
                 </td>
                 <td class="px-6 py-4">
                     {{ $scan->is_marking_attendance ? 'Yes' : 'No' }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ $scan->esp_id ?? 'Not Set' }}
                 </td>
                 <td class="px-6 py-4 flex float-right gap-4">
                     <x-pui.link :href="route('admin.rfid.show', $scan)" icon="bi-eye"></x-pui.link>

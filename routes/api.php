@@ -16,10 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('rfid', RFIDScannerController::class, ['only' => ['show', 'store']]);
 Route::apiResource('attendances', AttendanceController::class, ['only' => ['index', 'store']]);
 
 Route::prefix('cards')->name('cards.')->group(function () {
     Route::get('/{card:rfid_tag}', [CardController::class, 'show'])->name('show');
     Route::post('/', [CardController::class, 'store'])->name('store');
+});
+
+Route::prefix('rfid')->name('rfid.')->group(function () {
+    Route::get('/{rfid:esp_id}', [RFIDScannerController::class, 'show'])->name('show');
+    Route::post('/', [RFIDScannerController::class, 'store'])->name('store');
 });
