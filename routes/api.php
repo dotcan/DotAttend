@@ -16,6 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return ['project' => [
+        'name' => 'DotAttend',
+        'description' => 'Embedded RFID API',
+        'author' => 'Nadeem Mousa',
+        'version' => 1,
+    ]];
+});
+
 Route::apiResource('attendances', AttendanceController::class, ['only' => ['index', 'store']]);
 
 Route::prefix('cards')->name('cards.')->group(function () {
