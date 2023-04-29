@@ -28,7 +28,10 @@ class AttendanceController extends Controller
         $request->validate([
             'rfid_scanner' => ['required', 'numeric'],
             'rfid_tag' => ['required', 'string'],
+            'esp_only' => ['nullable', 'boolean'],
         ]);
+
+        $esp = $request->input('esp_only');
 
         $scanner_id = $request->input('rfid_scanner');
         $rfid_tag = $request->input('rfid_tag');
@@ -40,7 +43,7 @@ class AttendanceController extends Controller
         $card = Card::with('user.enrollments')->where('rfid_tag', $rfid_tag)->firstOrFail();
         $user = $card->user;
         if (!$user)
-            return ["message" => "Card does not belong to any user"];
+            return ["message" => $esp ? "Your card is not registered." : "Card does not belong to any user"];
 
         $now = now();
         $schedule = ClassSchedule::whereLocation($scanner->location)
@@ -54,7 +57,7 @@ class AttendanceController extends Controller
             ->firstOrFail();
 
         if (!$user->enrollments->contains('class_schedule_id', $schedule->id))
-            return ["message" => "User is not enrolled in schedule {$schedule->id} ({$schedule->course_class->course->crn})"];
+            return ["message" => ($esp ? "You're" : "User is") . " not enrolled in schedule {$schedule->id} ({$schedule->course_class->course->crn})"];
 
         if ($schedule->conductedClasses->isEmpty())
             $this->newConductedClass($schedule);
@@ -69,7 +72,7 @@ class AttendanceController extends Controller
 
         if (($att = $user->attendances->sortByDesc('created_at')->where('class_schedule_id', $schedule->id)->first())
             && $att->created_at->isToday())
-            return ["message" => "User already attended this class"];
+            return ["message" => $esp ? "You've already marked your attendance,\r\n $user->name" : "User already attended this class"];
 
         $att = $user->attendances()->create([
             'class_schedule_id' => $schedule->id,
@@ -77,14 +80,23 @@ class AttendanceController extends Controller
             'absence_id' => null,
         ]);
 
-        return [
-            "message" => "Marked user attendance.",
-            "data" => [
-                "attendance" => $att,
-                "user" => $user->only(['id', 'name', 'type']),
-                "course" => $schedule->course_class->course->only(['name', 'crn'])
-            ]
-        ];
+        $course = $schedule->course_class->course;
+        if ($esp)
+            $response = [
+                "message" => "Marked $user->short_last_name ($user->id) attendance for $course->crn $course->name",
+                "code" => 0xA
+            ];
+        else
+            $response = [
+                "message" => "Marked user attendance.",
+                "data" => [
+                    "attendance" => $att,
+                    "user" => $user->only(['id', 'name', 'type']),
+                    "course" => $course->only(['name', 'crn'])
+                ]
+            ];
+
+        return $response;
     }
 
     private function newConductedClass(&$schedule)
