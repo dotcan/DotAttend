@@ -14,20 +14,15 @@ class AttendanceController extends Controller
     {
         if (str(\Route::currentRouteName())->startsWith('admin')) {
             $limit = $request->input('limit') ?? 25;
-            $attendances = Attendance::with(['user', 'absence', 'class_schedule.course_class.course'])->latest()->paginate($limit);
+            $attendances = Attendance::with(['user', 'absence', 'class_schedule.course_class.course'])->latest();
+            if ($request->integer('schedule'))
+                $attendances->whereClassScheduleId($request->input('schedule'));
+            $attendances = $attendances->paginate($limit);
             return view('admin.attendances.index', compact('attendances'));
         } else {
             $enrollments = auth()->user()->enrollments()->with(['class_schedule.conductedClasses', 'attendances'])->get();
             return view('attendance.index', compact('enrollments'));
         }
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -89,6 +84,7 @@ class AttendanceController extends Controller
      */
     public function destroy(Attendance $attendance)
     {
-        //
+        $attendance->delete();
+        return redirect()->back();
     }
 }
