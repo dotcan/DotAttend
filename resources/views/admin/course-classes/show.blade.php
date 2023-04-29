@@ -10,9 +10,9 @@
             Date: <span>{{ $class->duration_date }}</span>
         </h3>
         <div class="mt-4">
-            <x-pui.link :href="route('admin.schedules.index', $class)">View Schedules</x-pui.link>
+            <x-pui.link :href="route('admin.schedules.index', ['class' => $class])">View Schedules</x-pui.link>
             <i class="bi bi-dot text-gray-500"></i>
-            <x-pui.link :href="route('admin.schedules.create', $class)">Create New Schedule</x-pui.link>
+            <x-pui.link :href="route('admin.schedules.create', ['class' => $class])">Create New Schedule</x-pui.link>
         </div>
     </div>
 </x-admin-layout>
