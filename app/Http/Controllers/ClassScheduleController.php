@@ -15,8 +15,8 @@ class ClassScheduleController extends Controller
     public function index(Request $request)
     {
         if (str(\Route::currentRouteName())->startsWith('teacher')) {
-
-            return view('teacher.class-schedules.index');
+            $enrollments = auth()->user()->enrollments()->with(['class_schedule.conductedClasses'])->paginate(10);
+            return view('teacher.class-schedules.index', compact('enrollments'));
         }
         if ($request->input('class'))
             $schedules = ClassSchedule::whereCourseClassId($request->input('class'))
@@ -73,7 +73,7 @@ class ClassScheduleController extends Controller
             return view('admin.class-schedules.show', compact('schedule'));
         } else if (str(\Route::currentRouteName())->startsWith('teacher')) {
             $schedule->loadMissing(['course_class.course']);
-            return view('admin.class-schedules.show', compact('schedule'));
+            return view('teacher.class-schedules.show', compact('schedule'));
         } else {
             $schedule->loadMissing(['enrollments' => function ($q) {
                 $q->where('user_id', auth()->user()->id);

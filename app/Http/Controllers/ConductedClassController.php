@@ -18,11 +18,6 @@ class ConductedClassController extends Controller
         //
     }
 
-    public function indexo()
-    {
-
-    }
-
     /**
      * Show the form for creating a new resource.
      */

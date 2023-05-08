@@ -19,6 +19,11 @@ class AttendanceController extends Controller
                 $attendances->whereClassScheduleId($request->input('schedule'));
             $attendances = $attendances->paginate($limit);
             return view('admin.attendances.index', compact('attendances'));
+        } else if (str(\Route::currentRouteName())->startsWith('teacher')) {
+            $request->validate(['schedule' => ['required', 'numeric']]);
+            $attendances = Attendance::with(['user', 'absence', 'class_schedule.course_class.course'])
+                ->whereClassScheduleId($request->input('schedule'))->latest()->paginate(25);
+            return view('teacher.attendances.index', compact('attendances'));
         } else {
             $enrollments = auth()->user()->enrollments()->with(['class_schedule.conductedClasses', 'attendances'])->get();
             return view('attendance.index', compact('enrollments'));
@@ -39,6 +44,8 @@ class AttendanceController extends Controller
     public function edit(Attendance $attendance)
     {
         $attendance->loadMissing('absence');
+        if (str(\Route::currentRouteName())->startsWith('teacher'))
+            return view('teacher.attendances.edit', compact('attendance'));
         return view('admin.attendances.edit', compact('attendance'));
     }
 
@@ -76,6 +83,8 @@ class AttendanceController extends Controller
                 $attendance->update(['absence_id' => $ab->id]);
             }
 
+        if (str(\Route::currentRouteName())->startsWith('teacher'))
+            return redirect()->route('teacher.attendances.index', ['schedule' => $attendance->class_schedule_id]);
         return redirect()->route('admin.attendances.index');
     }
 

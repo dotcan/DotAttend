@@ -12,7 +12,7 @@
             </x-pui.sidebar-link>
         </li>
         <li>
-            <x-pui.sidebar-link :href="route('teacher.schedules.index')" icon="bi-people"
+            <x-pui.sidebar-link :href="route('teacher.schedules.index')" icon="bi-view-list"
                                 :active="request()->routeIs('teacher.schedules.index')">
                 {{ __('Schedules') }}
             </x-pui.sidebar-link>
