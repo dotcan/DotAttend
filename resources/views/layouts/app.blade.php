@@ -41,8 +41,8 @@
                 </div>
             @endauth
             <p class="text-xs text-gray-400">
-                Made with <i class="bi bi-heart text-xs"></i> by <span
-                    class="text-white decoration-2 font-medium hover:text-gray-200 hover:decoration-gray-400">Nadeem Mousa</span>
+                Made with <i class="bi bi-heart text-xs"></i> by the
+                <a href="mailto:dotcan@proton.me" class="text-white decoration-2 font-medium hover:text-gray-200 hover:decoration-gray-400">DotCan Team</a>
             </p>
         </div>
     </footer>
