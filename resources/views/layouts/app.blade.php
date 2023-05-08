@@ -17,8 +17,8 @@
     <!-- ========== HEADER ========== -->
     <header class="mb-auto flex justify-center z-50 w-full py-4">
         <nav class="px-4 sm:px-6 lg:px-8" aria-label="Global">
-            <a class="flex-none text-xl font-semibold sm:text-3xl dark:text-white select-none" href="{{ route('home') }}"
-               aria-label="dotAttend">dotAttend</a>
+            <a class="flex-none text-xl font-semibold sm:text-3xl text-gray-400 select-none" href="{{ route('home') }}"
+               aria-label="dotAttend">DotAttend</a>
         </nav>
     </header>
     <!-- ========== END HEADER ========== -->
